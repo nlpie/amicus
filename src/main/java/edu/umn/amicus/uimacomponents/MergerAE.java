@@ -107,6 +107,27 @@ public class MergerAE extends JCasAnnotator_ImplBase {
             throw new AmicusConfigurationException(e);
         }
 
+        if (pullerClassNames == null) {
+            pullerClassNames = new String[numInputs];
+        }
+        if (typeClassNames == null) {
+            typeClassNames = new String[numInputs];
+        }
+        if (inputFields == null) {
+            inputFields = new String[numInputs];
+        }
+        if (distillerClassNames == null) {
+            distillerClassNames = new String[numOutputs];
+        }
+        if (pusherClassNames == null) {
+            pusherClassNames = new String[numOutputs];
+        }
+        if (outputAnnotationFields == null) {
+            outputAnnotationFields = new String[numOutputs];
+        }
+        if (outputAnnotationTypes == null) {
+            outputAnnotationTypes = new String[numOutputs];
+        }
         distillers = new ArrayList<>();
         pushers = new ArrayList<>();
         pullers = new ArrayList<>();
