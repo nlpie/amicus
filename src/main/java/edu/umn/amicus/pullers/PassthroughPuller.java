@@ -1,6 +1,14 @@
 package edu.umn.amicus.pullers;
 
 import org.apache.uima.jcas.tcas.Annotation;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.uima.jcas.JCas;
+import org.apache.uima.cas.Feature;
+import org.apache.uima.cas.Type;
+import org.apache.uima.jcas.tcas.Annotation;
+import edu.umn.amicus.AmicusException;
+
 
 /**
  * This is a true null Puller: it doesn't even call the getter, just passes the Annotation object through.
@@ -11,13 +19,31 @@ import org.apache.uima.jcas.tcas.Annotation;
  */
 public class PassthroughPuller extends Puller {
 
-    public PassthroughPuller(String fieldName) {
-        super(fieldName);
+    public PassthroughPuller() {
     }
 
     @Override
-    public Annotation pull(Annotation annotation) {
-        return annotation;
+    public Object pull(Annotation annotation) throws AmicusException {
+	try {
+	    Type t = annotation.getType();
+	    Class<? extends Annotation> annotationClass = getClassFromName(t.getName());
+	    List<Object> objectList = new ArrayList<>();
+
+	    for (Feature f : t.getFeatures()) {
+		String name = f.getShortName();
+		if ("".equals(name)) {
+		    objectList.add(null);
+		} else {
+		    if(!"sofa".equals(name)){
+			objectList.add(callThisGetter(name, annotation));
+		    }
+		}
+	    }
+	    return objectList;
+	} catch (ReflectiveOperationException e) {
+	    throw new AmicusException(e);
+	}
+
     }
 
 }

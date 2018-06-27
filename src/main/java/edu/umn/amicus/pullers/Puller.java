@@ -70,4 +70,8 @@ public class Puller implements AnalysisPiece {
         return toCall.invoke(annotation);
     }
 
+    protected static Class<? extends Annotation> getClassFromName(String name) throws ClassNotFoundException {
+        return (Class<? extends Annotation>) Class.forName(name);
+    }
+
 }
