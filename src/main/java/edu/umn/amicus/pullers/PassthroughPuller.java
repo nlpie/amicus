@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.cas.Feature;
 import org.apache.uima.cas.Type;
-import org.apache.uima.jcas.tcas.Annotation;
 import edu.umn.amicus.AmicusException;
 
 
