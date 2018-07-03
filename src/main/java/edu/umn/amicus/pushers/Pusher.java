@@ -113,7 +113,7 @@ public class Pusher implements AnalysisPiece {
     protected static Method getSetterForField(Class clazz, String name) throws NoSuchMethodException {
         String setterName = Util.getSetterFor(name);
         for (Method method : clazz.getMethods()) {
-            if (method.getName().equals(setterName)) {
+            if (method.getName().equals(setterName) && method.getParameters().length == 1) {
                 return method;
             }
         }
